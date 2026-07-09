@@ -4,7 +4,7 @@ let socket = null;
 
 export const connectSocket = () => {
   const token = localStorage.getItem('token');
-  socket = io('http://localhost:5000', {
+  socket = io('https://ai-chat-app-backend-d4ow.onrender.com', {
     auth: { token },
   });
   return socket;

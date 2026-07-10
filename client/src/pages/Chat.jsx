@@ -32,6 +32,7 @@ function Chat() {
   const [editMsgValue, setEditMsgValue] = useState('');
   const [seenMap, setSeenMap] = useState({});
   const [darkMode, setDarkMode] = useState(() => localStorage.getItem('darkMode') === 'true');
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const messagesEndRef = useRef(null);
   const typingTimeoutRef = useRef(null);
   const notifTimeoutRef = useRef(null);
@@ -165,6 +166,7 @@ function Chat() {
     setAiThinking(false);
     setLoadingMessages(true);
     setUnreadCounts((prev) => ({ ...prev, [room._id]: 0 }));
+    setSidebarOpen(false);
     const socket = getSocket();
     socket.emit('joinRoom', room._id, user.username);
     try {
@@ -303,7 +305,9 @@ function Chat() {
         </div>
       )}
 
-      <div className="sidebar">
+      {sidebarOpen && <div className="sidebar-overlay" onClick={() => setSidebarOpen(false)} />}
+
+      <div className={`sidebar ${sidebarOpen ? 'sidebar-open' : ''}`}>
         <div className="sidebar-header">
           <div className="sidebar-user">
             <div className="user-avatar">{user?.username?.[0]?.toUpperCase()}</div>
@@ -370,6 +374,7 @@ function Chat() {
         {activeRoom ? (
           <>
             <div className="chat-header">
+              <button className="mobile-menu-btn" onClick={() => setSidebarOpen(true)}>☰</button>
               <h3># {activeRoom.name}</h3>
               <div className="online-indicator">
                 <span className="online-dot"></span>
@@ -506,6 +511,7 @@ function Chat() {
           </>
         ) : (
           <div className="chat-empty">
+            <button className="mobile-menu-btn mobile-menu-btn-empty" onClick={() => setSidebarOpen(true)}>☰ Rooms</button>
             <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
               <circle cx="60" cy="60" r="60" fill="#EEEDFE"/>
               <path d="M40 45C40 41.6863 42.6863 39 46 39H74C77.3137 39 80 41.6863 80 45V65C80 68.3137 77.3137 71 74 71H54L44 81V71H46C42.6863 71 40 68.3137 40 65V45Z" fill="#5B5FEF"/>
@@ -524,4 +530,4 @@ function Chat() {
   );
 }
 
-export default Chat;0
+export default Chat;

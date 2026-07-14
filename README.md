@@ -2,6 +2,12 @@
 
 A full-stack, real-time chat application where an AI assistant is a genuine participant in the conversation — not a bolted-on chatbot. Users can create rooms, chat live with WebSockets, mention `@ai` to bring the assistant into any conversation, get AI-generated reply suggestions, and summarize long threads with one click.
 
+## Screenshots
+
+![Chat interface](./screenshots/chat-demo.png)
+
+![AI reply in action](./screenshots/ai-reply-demo.png)
+
 **🔗 Live demo:** [ai-chat-app-ten-phi.vercel.app](https://ai-chat-app-ten-phi.vercel.app)
 
 > **Note:** The backend runs on Render's free tier, which spins down after periods of inactivity. If the app has been idle, the first request may take 30-60 seconds while the server wakes up — this is a hosting limitation, not a bug.
